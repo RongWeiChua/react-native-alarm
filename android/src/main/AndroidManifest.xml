@@ -3,7 +3,7 @@
     package="com.liang">
 
     <application>
-        <receiver android:name=".RNALarmCeiver">
+        <receiver android:name=".RNAlarmReceiver">
             <intent-filter>
                 <action android:name="REACT_NATIVE_ALARM"/>
             </intent-filter>

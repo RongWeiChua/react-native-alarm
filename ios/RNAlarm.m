@@ -168,21 +168,22 @@ RCT_EXPORT_METHOD(setAlarm:(NSString *)triggerTime
         //content.categoryIdentifier = @"RNAlarmCategory";
         content.categoryIdentifier = triggerTime;
         
-        musicUri = @"Constellation.m4r";
+        //musicUri = @"Constellation.m4r";
         if(musicUri == nil) {
             content.sound = [UNNotificationSound defaultSound];
         }else {
             NSFileManager *fileManage = NSFileManager.defaultManager;
             
-            NSURL *libraryUrl = [[fileManage URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask] objectAtIndex:0];
+            NSURL *libraryUrl = [[fileManage URLsForDirectory:NSLibraryDirectory inDomains:NSAllDomainsMask] objectAtIndex:0];
             NSURL *soundDirUrl = [libraryUrl URLByAppendingPathComponent:@"Sounds"];
             [fileManage createDirectoryAtURL:soundDirUrl withIntermediateDirectories:TRUE attributes:nil error:nil];
             
-            NSURL *from = [NSURL fileURLWithPath:@"/Library/Ringtones/Constellation.m4r"];
-            NSURL *dest = [soundDirUrl URLByAppendingPathComponent:musicUri];
+            NSURL *from = [NSURL URLWithString: musicUri];
+            NSURL *dest = [soundDirUrl URLByAppendingPathComponent:@"myalarm.mp3"];
             [fileManage copyItemAtURL:from toURL:dest error:nil];
             
-            content.sound = [UNNotificationSound soundNamed:musicUri];
+            
+            content.sound = [UNNotificationSound soundNamed:@"myalarm.mp3"];
         }
         //   NSTimeInterval time =[triggerTime doubleValue];
         //
@@ -224,7 +225,7 @@ RCT_EXPORT_METHOD(setAlarm:(NSString *)triggerTime
             
             UNNotificationAction *action = [UNNotificationAction
                                             actionWithIdentifier:@"clear.repeat.action"
-                                            title:@"关闭"
+                                            title:title
                                             options:UNNotificationActionOptionForeground];
             UNNotificationCategory *category = [UNNotificationCategory
                                                 //categoryWithIdentifier:@"RNAlarmCategory"

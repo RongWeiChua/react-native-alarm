@@ -39,11 +39,10 @@
 ```javascript
 import RNAlarm from 'react-native-alarm';
 
-// TODO: What to do with the module?
-RNAlarm.setAlarm('Meeting',
-        'Meeting with customer',
-        '', 
-        '',
+RNAlarm.setAlarm(((new Date()).getTime() + x + ''), // First parameter is a string of the time to ring, you can use this format to have an alarm ring x seconds after it's been set. 
+        'MyTitle', // title of the alarm that appears in the notificaton bar when it rings
+        '', // retry variable, set to non-null/non-empty to attempt to set the last alarm that was initialized before. Leave empty/null if you do not know what it does 
+        '', // uri to the sound file to play when the alarm rings, recommended to use a file picker library to get uri
      () => {
        // Success callback function
      },

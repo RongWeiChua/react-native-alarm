@@ -27,7 +27,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  * Created by GBLiang on 9/22/2017.
  */
 
-public class RNALarmCeiver extends BroadcastReceiver {
+public class RNAlarmReceiver extends BroadcastReceiver {
 
     static MediaPlayer player = new MediaPlayer();
 
@@ -79,74 +79,74 @@ public class RNALarmCeiver extends BroadcastReceiver {
                     .setSmallIcon(android.R.drawable.sym_def_app_icon)//设置小图标
                     .setVibrate(new long[]{0,6000})
                     .setContentTitle(title)
-                    .setContentText("闹钟");
-
+                    .setContentText(title)
+                    .setSound(uri)
+                    .setDefaults(Notification.DEFAULT_LIGHTS)
+                    .setFullScreenIntent(pi, true)
+                    .setDeleteIntent(createOnDismissedIntent(context))
+                    .setAutoCancel(true);
 
             Notification notification = notificationBuilder.build();
-            notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
-            notificationBuilder.setFullScreenIntent(pi, true);
-            notificationBuilder.setDeleteIntent(createOnDismissedIntent(context));
-            notificationBuilder.setAutoCancel(true);
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             notificationManager.notify(0, notification);
 
 
-            try {
-                player.setDataSource(context, uri);
-                player.setLooping(true);
-                player.prepareAsync();
-                player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        player.start();
-                        new CountDownTimer(50000, 10000) {
-                            public void onTick(long millisUntilFinished) {
+            // try {
+            //     player.setDataSource(context, uri);
+            //     player.setLooping(true);
+            //     player.prepareAsync();
+            //     player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            //         @Override
+            //         public void onPrepared(MediaPlayer mp) {
+            //             player.start();
+            //             new CountDownTimer(50000, 10000) {
+            //                 public void onTick(long millisUntilFinished) {
 
-                            }
+            //                 }
 
-                            public void onFinish() {
-                                if (player.isPlaying()) {
-                                    player.stop();
-                                    player.reset();
-                                }
-                            }
-                        }.start();
-                    }
-                });
+            //                 public void onFinish() {
+            //                     if (player.isPlaying()) {
+            //                         player.stop();
+            //                         player.reset();
+            //                     }
+            //                 }
+            //             }.start();
+            //         }
+            //     });
 
-            } catch (IOException e) {
-                uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-                //e.printStackTrace();
-            }
+            // } catch (IOException e) {
+            //     uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            //     //e.printStackTrace();
+            // }
 
-            if (musicUri != null  && !"".equals(musicUri)) {
-                try {
+            // if (musicUri != null  && !"".equals(musicUri)) {
+            //     try {
 
-                    player.setDataSource(context, uri);
-                    player.setLooping(true);
-                    player.prepareAsync();
-                    player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        @Override
-                        public void onPrepared(MediaPlayer mp) {
-                            player.start();
-                            new CountDownTimer(50000, 10000) {
-                                public void onTick(long millisUntilFinished) {
+            //         player.setDataSource(context, uri);
+            //         player.setLooping(true);
+            //         player.prepareAsync();
+            //         player.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            //             @Override
+            //             public void onPrepared(MediaPlayer mp) {
+            //                 player.start();
+            //                 new CountDownTimer(50000, 10000) {
+            //                     public void onTick(long millisUntilFinished) {
 
-                                }
+            //                     }
 
-                                public void onFinish() {
-                                    if (player.isPlaying()) {
-                                        player.stop();
-                                        player.reset();
-                                    }
-                                }
-                            }.start();
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+            //                     public void onFinish() {
+            //                         if (player.isPlaying()) {
+            //                             player.stop();
+            //                             player.reset();
+            //                         }
+            //                     }
+            //                 }.start();
+            //             }
+            //         });
+            //     } catch (IOException e) {
+            //         e.printStackTrace();
+            //     }
+            // }
         }
     }
 
