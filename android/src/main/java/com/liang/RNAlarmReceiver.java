@@ -48,7 +48,7 @@ public class RNAlarmReceiver extends BroadcastReceiver {
             String title = intent.getStringExtra(RNAlarmConstants.REACT_NATIVE_ALARM_TITLE);
             String musicUri = intent.getStringExtra(RNAlarmConstants.REACT_NATIVE_ALARM_MUSIC_URI);
             if (musicUri == null || "".equals(musicUri)) {
-                uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+                uri = null;
             } else {
                 uri = UriUtil.parseUriOrNull(musicUri);
             }
