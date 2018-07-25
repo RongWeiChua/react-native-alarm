@@ -169,7 +169,7 @@ RCT_EXPORT_METHOD(setAlarm:(NSString *)triggerTime
         content.categoryIdentifier = triggerTime;
         
         //musicUri = @"Constellation.m4r";
-        if(musicUri == nil || musicUri == "") {
+        if(musicUri == nil || musicUri == @"") {
             content.sound = nil;
         }else {
             NSFileManager *fileManage = NSFileManager.defaultManager;
